@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "glossy-beach-227612",
+  "private_key_id": "fb0d34cd4ba5944e630e9d87de0b7f31e9136c94",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDeoyfEpf9eCKFn\nXm3dm6FshwlMeg9XwNPH21wP+uVrvjgxsRmDj0ScyitLneBIVQh92soj8BiWTBWd\n1sHHn6ieN2CAJOI8fMOjIvVDkf7P3r7L81QqijYVnU5mSU0tR1Zv/U6omzNswJRy\n1vmy5fMZHbV+sbtDvZMb4S48mKPPABFrt+QApGHnDGkPueFbY1GxWDR5gz9D99il\n9pyJUqD9bZfBnO/KvU7s2/1QJXyPj6z5tWmbEQQgDgv3Dy7MKFSZxLRIn5mM7o4C\niNtOqLr12AALHmEpowm7VEMCyY3I5tiPTqfHP06yltBmmHxJmbGot01E8utFEeKI\nC8GrhPOlAgMBAAECggEAQyY1i+e/Pmbe+5TtER5sERYndVQJRZ/ooEpmmYFEafs8\n6qvuNJJlEN8fMNbkuxw+i+sN9cnoOIipKmqIFsPucQ3lwrCdNb4xqYYVMHSbxKl7\npXr2I0B9cIZ6C3rHVsVB6lQdwdfRqlbpTzvMoysc57HguF41y4glkw6XSfqFyZw8\nzhjfIPISFAHLxPby+WppIQxh5/r92ugsh9iHbT/PF4eiJtlXTgcxv1qeHsF2I0wO\ntoaFOq6JfHKU6iTxZiZ4DYHg/wisFRPlkwxZmkH+S9a5ityVt3npXrnJwMHN9B66\nh5JWem1TVLu4xGbbjRnqlL2fy+6gBB/iM4gHjUcvbwKBgQD/X7OPSatmLNuo03wc\n8BVYf2ciMisNNcky0SRJipOH8GtkkuyUsnNn52QLxvRNsIK59avPSoIPQPz+wyno\nc3ZZxMUChkTglq4SEqhRlgoOjUh4Ngl/9frGUVX5cuclqDFQlR4a9CX/7UDIfzAC\nobGY9iDrgV45J7jT1UrIwNaWXwKBgQDfLue5qk9pseqO65QOMowjfN7obbuzpyeu\nS3DejBYeer3Bxn8dBX1x1O3dU8LIK949mca9KEOGyvPXh63Fl0H7TG+KerTFTsK9\nKPXkfql0Y+KP855tTPf/2jADhx9GUdL+Q2Q+gv+JtgVEZBTN+AD3hwyek11RK/BP\ncUNWjMnMewKBgBdePYMWHa4K2srXF1taiMmBVwGlD5V034Vb5/Mm0Bs3X8xjOWzd\n63uNi/Ub7o0RYtT7aw5b5gzZSI1TdIlFz4WlYNW7TaAziZgzxt04WpE8Um5Vm4bv\nDlSJatGZtxcWDfUuwAN9ZeDGaBAwu0byXtr9YsPKIcIfJWWU9fPq2XgHAoGAURA8\nYpeVmJJi2959PFrnw8wLOukAkFRaeVg1et/u+MskOUnbybLAyaPJceaGjSZB5qYA\nJZyGSmNVBifl2isCcEBnEylWl4Pv/7zs8z1+VyQgmqCmHpUiTu/1GJLvrR7zQB9C\nPeJe5qoSZ7DiTZ2S3FVVJBPqhR0sf+5nwvwIIBkCgYEA9PsjOtsRjgVeozcuc6Qj\nGEbmPU6sc6/NMFrKJ5UYl26je4S1fZjHYBXTgmZaKWwQSxFTQlWaBtMTQyqW3o07\n55Id6sOEss6tipOLXwGEtzF+vTKXdqecPX2FQe/pWAzkdZ0QPyk4ezfXJ0+N+MNk\npkrT/T74dKF1hFWPcYTTXcQ=\n-----END PRIVATE KEY-----\n",
+  "client_email": "ocr-test@glossy-beach-227612.iam.gserviceaccount.com",
+  "client_id": "108020410101775672246",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/ocr-test%40glossy-beach-227612.iam.gserviceaccount.com"
+}

@@ -1,0 +1,261 @@
+# Tessrect
+
+class ReadOcrTes(object):
+    def __init__(self):
+        self.variable="foo"
+    
+    def readOcr_tes(url):
+        #uploaded_file_url_abs="http://documentparser.southcentralus.cloudapp.azure.com" +url
+        uploaded_file_url_abs="/home/trilok567/doc1/read_multiple_documents"+url
+        img = Image.open(uploaded_file_url_abs)
+        img = img.convert('RGBA')
+        pix = img.load()
+
+        for y in range(img.size[1]):
+            for x in range(img.size[0]):
+                if pix[x, y][0] < 102 or pix[x, y][1] < 102 or pix[x, y][2] < 102:
+                    pix[x, y] = (0, 0, 0, 255)
+                else:
+                    pix[x, y] = (255, 255, 255, 255)
+        img.save('temp.png')
+        uid = ""
+        text = pytesseract.image_to_string(Image.open('temp.png'))
+        print(text)
+        text = list(filter(lambda x: ord(x)<128,text))
+        print('data1')
+        temp_text="".join(text)
+        temp1_text=temp_text.rstrip().split('\n')
+        
+        # Initializing data variable
+        name = ""
+        gender = ""
+        ayear = ""
+        uid = ""
+        yearline = []
+        genline = []
+        nameline = []
+        text1 = []
+        text2 = []
+        lines = temp1_text
+        for wordlist in lines:
+        
+            xx = wordlist.split( )
+            print("xx")
+            print(xx)
+            if ([w for w in xx if re.search('(Year|ear|Birth|irth|YoB|DOB)$', w)]):
+                yearline = wordlist
+                break
+            else:
+                text1.append(wordlist)
+        try:
+            yearline = re.split('Year|Birth|irth|YoB|DOB', yearline)[1:]
+            yearline = ''.join(str(e) for e in yearline)
+
+            if(yearline):
+                ayear = dparser.parse(yearline,fuzzy=True).year
+        except:
+            pass
+        
+
+        # Searching for Gender
+        try:
+            for wordlist in lines:
+                xx = wordlist.split( )
+                if ([w for w in xx if re.search('(Female|Male|emale|male|ale)$', w)]):
+                    genline = wordlist
+                    break
+
+            if 'Female' in genline:
+                gender = "Female"
+            if 'Male' in genline:
+                gender = "Male"
+
+            text2 = text.split(genline,1)[1]
+
+        except:
+            pass
+
+        #-----------Read Database
+        with open('/home/trilok567/doc1/read_multiple_documents/mysite/photos/namedb.csv', 'rt',encoding='UTF8') as f:
+            reader = csv.reader(f)
+            newlist = list(reader)    
+        newlist = sum(newlist, [])
+
+        # Searching for Name and finding closest name in database
+        try:
+            text1 = filter(None, text1)
+            for x in text1:
+                for y in x.split( ):
+                    if(difflib.get_close_matches(y.upper(), newlist)):
+                        nameline.append(x)
+
+            name = ''.join(str(e) for e in nameline)
+        except:
+            pass
+
+
+        # Searching for UID
+        try:
+            newlist = []
+            for xx in text2.split('\n'):
+                newlist.append(xx)
+            newlist = filter(lambda x: len(x)>5, newlist)
+            ma = 0
+            uid = ''.join(str(e) for e in newlist)
+            for no in newlist:
+                if ma<sum(c.isdigit() for c in no):
+                    ma = sum(c.isdigit() for c in no)
+                    uid = int(filter(str.isdigit, no))
+        except:
+            pass
+        # Making tuples of data
+        data = {}
+        data['Name'] =str(name)
+        data['Gender'] = gender
+        data['Birth year'] = ayear
+        data['Uid'] = uid
+        print(data)
+
+     
+
+
+        # Removing dummy files
+        os.remove('temp.png')
+        return_data="Aadhar Card</p></td><td><p><b>Name : </b>"+data['Name']+"<br/><b>DOB : </b>"+data['Birth year']+"<br/><b>Gender : </b>"+data['Gender']+"<br/><b>Aadhar : </b>"+data['Uid']+"</p></td></tr>"
+
+        return return_data
+
+
+    
+
+    # Microsoft
+
+    class ReadOCR(object):
+    def __init__(self):
+        self.variable="foo"
+    
+    def readOCR_DATA(url):
+
+        subscription_key = "5176b8b4dab044e7a30cda6796a91027"
+        #assert subscription_key
+
+        vision_base_url = "https://eastus.api.cognitive.microsoft.com/vision/v2.0/"
+
+        analyze_url = vision_base_url + "ocr"
+        
+        uploaded_file_url_abs="/home/trilok567/read_multiple_documents" +url
+        print(uploaded_file_url_abs)
+
+        #visionUrl=vision_base_url+vision_apiKey
+        image_data=open(uploaded_file_url_abs,"rb").read()
+        headers    = {'Ocp-Apim-Subscription-Key': subscription_key,
+              'Content-Type': 'application/octet-stream'}
+        params  = {'language': 'unk', 'detectOrientation': 'true'}
+        
+        response = requests.post(
+            analyze_url, headers=headers,params=params, data=image_data)
+        response.raise_for_status()
+        ocrdata = response.json()
+        json_ocrdata=json.dumps(ocrdata)
+        alldata=[]   
+        
+        if json_ocrdata.find("INCOME")>=0 or json_ocrdata.find("Govt")>=0 or json_ocrdata.find("Permanent")>=0 or json_ocrdata.find("Account")>=0:
+            #print("Pan Entered----->>")
+            
+            for region in ocrdata["regions"]:
+
+
+                for line_info in region["lines"]:
+                    let_line=""
+                    for word_info in line_info["words"]:
+                        let_line=let_line+" "+word_info["text"]
+                    alldata.append(let_line)
+            #print(alldata)
+
+            dob=""
+            name=""
+            fname=""
+            pan=""
+
+            test_data=['INCOME','GOVT','INDIA','DEPART','INDA','Account','Permanent','Signature','sign']
+
+            for td in test_data:
+                for line_data in alldata:
+                    if(line_data.find(td)>=0):
+                        alldata.remove(line_data)
+            print(alldata)
+
+            if(len(alldata)>=1):
+                name=alldata[0]
+            if(len(alldata)>=2):
+                fname=alldata[1]
+            if(len(alldata)>=3):
+                print(alldata[2])
+                if(alldata[2].find('/')>=0):
+                    
+                    dob=alldata[2]
+                else:
+                    dob="N/A"
+            if(len(alldata)>=4):
+                pan=alldata[3]
+            return_data="PAN Card</p></td><td><p><b>Name : </b>"+name+"<br/><b>Father's name : </b>"+fname+"<br/><b>DOB : </b>"+dob+"<br/><b>PAN : </b>"+pan+"</p></td></tr>"
+            mail_the_data=mailData()
+            mail_the_data.mail_Data(url,return_data,"Microsoft")
+            return return_data
+
+        elif (json_ocrdata.find('Government')>=0 or json_ocrdata.find('India')>=0 or json_ocrdata.find('Male')>=0 or json_ocrdata.find('Female')>=0) and (json_ocrdata.find('Bank')==-1) :
+            #print("aadhar entered ---->>>>>")
+            aadhar=""
+            name=""
+            dob=""
+            gender=""
+            alldata=[]
+            for region in ocrdata["regions"]:
+
+
+                for line_info in region["lines"]:
+                    let_line=""
+                    for word_info in line_info["words"]:
+                        let_line=let_line+" "+word_info["text"]
+                    alldata.append(let_line)
+            #print(alldata)
+            """ if(len(alldata)>=1):
+                name=alldata[1]
+            if(len(alldata)>=2):
+                dob=alldata[2]
+            if(len(alldata)>=3):
+                gender=alldata[3]
+            if(len(alldata)>=4):
+                aadhar=alldata[4] """
+            
+
+
+            if(len(alldata)>=1):
+                name=alldata[1]
+            if(len(alldata)>=2):
+                dob=alldata[2]
+            if(len(alldata)>=3):
+                for tis in alldata:
+                    if(tis.find('male')>=0):
+                        gender=alldata[3]
+                        if(len(alldata)>=4):
+                            aadhar=alldata[4]
+                    else:
+                        gender="N/A"
+                        aadhar=alldata[3]
+        
+            return_data="Aadhar Card</p></td><td><p><b>Name : </b>"+name+"<br/><b>DOB : </b>"+dob+"<br/><b>Gender : </b>"+gender+"<br/><b>Aadhar : </b>"+aadhar+"</p></td></tr>"
+            mail_the_data=mailData()
+            mail_the_data.mail_Data(url,return_data,"Microsoft")
+            return return_data
+        else:
+            image_des="Unable to detect</p></td><td><p>Please upload a clear Image</p></td>"
+            mail_the_data=mailData()
+            mail_the_data.mail_Data(url,image_des,"Microsoft")
+            return image_des
+                
+        return ""
+
+
+
+
