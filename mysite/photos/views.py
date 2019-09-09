@@ -57,7 +57,7 @@ class ReadOcrGoogle(object):
     
     def ReadOcrDataGoogle(url):
         google_vision_baseUrl="https://vision.googleapis.com/v1/images:annotate?key=AIzaSyAoUbR4olpLrpvvRmpLtFvCqtKmiI8i95g"
-        uploaded_file_url_abs="documentparser.westus.cloudapp.azure.com" +url
+        uploaded_file_url_abs="http://documentparser.westus.cloudapp.azure.com" +url
         #uploaded_file_url_abs="http://127.0.0.1" +url
         print("url final")
         print(uploaded_file_url_abs)
