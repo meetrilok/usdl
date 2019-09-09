@@ -165,7 +165,9 @@ class ReadOcrGoogle(object):
 
         #USDL
         elif(json_ocrdata.find("Dl")):
-            
+            print("DL")
+            image_des="DL Detected"
+            return image_des
 
         #Aadhar card
         elif (json_ocrdata.find('Government')>=0 or json_ocrdata.find('Birth')>=0 or json_ocrdata.find('DOB')>=0 or json_ocrdata.find('India')>=0 or json_ocrdata.find('Male')>=0 or json_ocrdata.find('Female')>=0) and (json_ocrdata.find('Bank')==-1) :
