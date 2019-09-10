@@ -170,11 +170,13 @@ class ReadOcrGoogle(object):
             DLNumber=""
             pName=""
             fName=""
+            pcity=""
             junk_data=['INDIAN','DRIVING',"lICENCING",'RTA' ]
             image_des="DL Detected"
             for jd in junk_data:
                 for ld in alldata:
                     alldata.remove(ld)
+            
             
             return image_des
 
