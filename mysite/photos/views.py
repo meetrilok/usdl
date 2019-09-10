@@ -164,9 +164,18 @@ class ReadOcrGoogle(object):
             return return_data
 
         #USDL
-        elif(json_ocrdata.find("Dl")):
+        elif(json_ocrdata.find("DRIVING") or json_ocrdata.find("LICENCE") or json_ocrdata.find("Licencing") ):
             print("DL")
+            alldata=json_ocrdata.splitlines()
+            DLNumber=""
+            pName=""
+            fName=""
+            junk_data=['INDIAN','DRIVING',"lICENCING",'RTA' ]
             image_des="DL Detected"
+            for jd in junk_data:
+                for ld in alldata:
+                    alldata.remove(ld)
+            
             return image_des
 
         #Aadhar card
